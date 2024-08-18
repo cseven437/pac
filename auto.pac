@@ -37,6 +37,7 @@ var proxy_domains = {
     "avatars.githubusercontent.com": 1,
     "raw.githubusercontent.com": 1,
     "github.com": 1,
+    "github.dev": 1,
     "v2ex.com": 1,
     "ppsebs.com": 1,
     "nnu3.com": 1,
@@ -53,18 +54,18 @@ function hostindomains(domains, host) {
     var suffix;
     var pos = host.lastIndexOf('.');
     pos = host.lastIndexOf('.', pos - 1);
-    while(1) {
-    if (pos == -1) {
-        if (hasOwnProperty.call(domains, host)) {
-            return true;
-        } else {
-            return false;
+    while (1) {
+        if (pos == -1) {
+            if (hasOwnProperty.call(domains, host)) {
+                return true;
+            } else {
+                return false;
+            }
         }
-    }
-    suffix = host.substring(pos + 1);
-    if (hasOwnProperty.call(domains, suffix)) {
-        return true;
-    }
+        suffix = host.substring(pos + 1);
+        if (hasOwnProperty.call(domains, suffix)) {
+            return true;
+        }
         pos = host.lastIndexOf('.', pos - 1);
     }
 };
@@ -73,8 +74,10 @@ function FindProxyForURL(url, host) {
     // if (host == "www.haosou.com") {
     //     return "PROXY 360.itzmx.com:80";
     // }
-    if(hostindomains(proxy_domains, host)) {
+    if (hostindomains(proxy_domains, host)) {
+        alert(host + "   proxy")
         return proxy;
     }
+    alert(host + "   direct")
     return direct;
 }
